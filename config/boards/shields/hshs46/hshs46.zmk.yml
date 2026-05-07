@@ -1,0 +1,12 @@
+file_format: "1"
+id: hshs46
+name: HSHS46
+type: shield
+url: https://beekeeb.com
+requires: [pro_micro]
+features:
+  - keys
+  - studio
+siblings:
+  - hshs46_left
+  - hshs46_right
