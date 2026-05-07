@@ -3,17 +3,17 @@
 # Remove the snippet + cmake-args from hshs46_left if you do not want Studio.
 ---
 include:
-  - board: nice_nano
+  - board: nice_nano//zmk
     shield: hshs52_left
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y
-  - board: nice_nano
+  - board: nice_nano//zmk
     shield: hshs52_right
-  - board: nice_nano
+  - board: nice_nano//zmk
     shield: hshs46_left
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y
-  - board: nice_nano
+  - board: nice_nano//zmk
     shield: hshs46_right
   - board: nice_nano
     shield: settings_reset
