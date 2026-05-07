@@ -16,8 +16,8 @@
 
         keys  //                     w    h     x     y      rot    rx    ry
         /* Row 0 - left */
-            = <&key_physical_attrs 100  100     0   144    -1000    50   194>  /* L row0 col0 */
-            , <&key_physical_attrs 100  100    99   126     -500   149   176>  /* L row0 col1 */
+            = <&key_physical_attrs 100  100     0   144  (-1000)   50   194>  /* L row0 col0 */
+            , <&key_physical_attrs 100  100    99   126   (-500)   149   176>  /* L row0 col1 */
             , <&key_physical_attrs 100  100   205    39        0   255    90>  /* L row0 col2 */
             , <&key_physical_attrs 100  100   322     0        0   372    50>  /* L row0 col3 */
             , <&key_physical_attrs 100  100   422    31        0   472    81>  /* L row0 col4 */
@@ -30,8 +30,8 @@
             , <&key_physical_attrs 100  100  1145   126      500  1195   176>  /* R row0 col10 */
             , <&key_physical_attrs 100  100  1244   144     1000  1294   194>  /* R row0 col11 */
         /* Row 1 - left */
-            , <&key_physical_attrs 100  100    16   237    -1000    66   287>  /* L row1 col0 */
-            , <&key_physical_attrs 100  100   115   219     -500   165   269>  /* L row1 col1 */
+            , <&key_physical_attrs 100  100    16   237  (-1000)    66   287>  /* L row1 col0 */
+            , <&key_physical_attrs 100  100   115   219   (-500)   165   269>  /* L row1 col1 */
             , <&key_physical_attrs 100  100   213   134        0   263   184>  /* L row1 col2 */
             , <&key_physical_attrs 100  100   322    94        0   372   144>  /* L row1 col3 */
             , <&key_physical_attrs 100  100   422   125        0   472   175>  /* L row1 col4 */
@@ -44,8 +44,8 @@
             , <&key_physical_attrs 100  100  1129   219      500  1179   269>  /* R row1 col10 */
             , <&key_physical_attrs 100  100  1227   237     1000  1277   287>  /* R row1 col11 */
         /* Row 2 - left */
-            , <&key_physical_attrs 100  100    33   330    -1000    83   380>  /* L row2 col0 */
-            , <&key_physical_attrs 100  100   131   312     -500   181   362>  /* L row2 col1 */
+            , <&key_physical_attrs 100  100    33   330  (-1000)    83   380>  /* L row2 col0 */
+            , <&key_physical_attrs 100  100   131   312   (-500)   181   362>  /* L row2 col1 */
             , <&key_physical_attrs 100  100   221   228        0   271   278>  /* L row2 col2 */
             , <&key_physical_attrs 100  100   322   189        0   372   239>  /* L row2 col3 */
             , <&key_physical_attrs 100  100   422   219        0   472   269>  /* L row2 col4 */
