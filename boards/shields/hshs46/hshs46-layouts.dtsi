@@ -1,6 +1,10 @@
 /*
  * Copyright (c) 2021-2022 The ZMK Contributors
  * SPDX-License-Identifier: MIT
+ *
+ * HSHS46 Physical Layout
+ * Key rotations represent visual splay only (not PCB footprint rotation)
+ * col0: 10° splay, col1: 5° splay, col2-5: straight
  */
 
 #include <physical_layouts.dtsi>
@@ -11,62 +15,61 @@
         display-name = "HSHS46";
 
         keys  //                     w    h     x     y      rot    rx    ry
-        /* Row 0 - left (col0..5 = outer pinky to inner index) */
-            = <&key_physical_attrs 100  100     0   144  (-17000)   50   194>  /* L col0 */
-            , <&key_physical_attrs 100  100    99   126  (-17000)  149   176>  /* L col1 */
-            , <&key_physical_attrs 100  100   205    39  (-17500)  255    90>  /* L col2 */
-            , <&key_physical_attrs 100  100   322     0   18000   372    50>  /* L col3 */
-            , <&key_physical_attrs 100  100   422    31   18000   472    81>  /* L col4 */
-            , <&key_physical_attrs 100  100   522    44   18000   572    94>  /* L col5 */
-        /* Row 0 - right (col6..11 = inner index to outer pinky) */
-            , <&key_physical_attrs 100  100   722    44   18000   772    94>  /* R col6 */
-            , <&key_physical_attrs 100  100   822    31   18000   872    81>  /* R col7 */
-            , <&key_physical_attrs 100  100   922     0   18000   972    50>  /* R col8 */
-            , <&key_physical_attrs 100  100  1039    39   17500  1089    90>  /* R col9 */
-            , <&key_physical_attrs 100  100  1145   126   17000  1195   176>  /* R col10 */
-            , <&key_physical_attrs 100  100  1244   144   17000  1294   194>  /* R col11 */
+        /* Row 0 - left */
+            = <&key_physical_attrs 100  100     0   144    -1000    50   194>  /* L row0 col0 */
+            , <&key_physical_attrs 100  100    99   126     -500   149   176>  /* L row0 col1 */
+            , <&key_physical_attrs 100  100   205    39        0   255    90>  /* L row0 col2 */
+            , <&key_physical_attrs 100  100   322     0        0   372    50>  /* L row0 col3 */
+            , <&key_physical_attrs 100  100   422    31        0   472    81>  /* L row0 col4 */
+            , <&key_physical_attrs 100  100   522    44        0   572    94>  /* L row0 col5 */
+        /* Row 0 - right */
+            , <&key_physical_attrs 100  100   722    44        0   772    94>  /* R row0 col6 */
+            , <&key_physical_attrs 100  100   822    31        0   872    81>  /* R row0 col7 */
+            , <&key_physical_attrs 100  100   922     0        0   972    50>  /* R row0 col8 */
+            , <&key_physical_attrs 100  100  1039    39        0  1089    90>  /* R row0 col9 */
+            , <&key_physical_attrs 100  100  1145   126      500  1195   176>  /* R row0 col10 */
+            , <&key_physical_attrs 100  100  1244   144     1000  1294   194>  /* R row0 col11 */
         /* Row 1 - left */
-            , <&key_physical_attrs 100  100    16   237    1000    66   287>  /* L col0 */
-            , <&key_physical_attrs 100  100   115   219  (-17000)  165   269>  /* L col1 */
-            , <&key_physical_attrs 100  100   213   134  (-17500)  263   184>  /* L col2 */
-            , <&key_physical_attrs 100  100   322    94   18000   372   144>  /* L col3 */
-            , <&key_physical_attrs 100  100   422   125   18000   472   175>  /* L col4 */
-            , <&key_physical_attrs 100  100   522   139   18000   572   189>  /* L col5 */
+            , <&key_physical_attrs 100  100    16   237    -1000    66   287>  /* L row1 col0 */
+            , <&key_physical_attrs 100  100   115   219     -500   165   269>  /* L row1 col1 */
+            , <&key_physical_attrs 100  100   213   134        0   263   184>  /* L row1 col2 */
+            , <&key_physical_attrs 100  100   322    94        0   372   144>  /* L row1 col3 */
+            , <&key_physical_attrs 100  100   422   125        0   472   175>  /* L row1 col4 */
+            , <&key_physical_attrs 100  100   522   139        0   572   189>  /* L row1 col5 */
         /* Row 1 - right */
-            , <&key_physical_attrs 100  100   722   139   18000   772   189>  /* R col6 */
-            , <&key_physical_attrs 100  100   822   125   18000   872   175>  /* R col7 */
-            , <&key_physical_attrs 100  100   922    94   18000   972   144>  /* R col8 */
-            , <&key_physical_attrs 100  100  1031   134   17500  1081   184>  /* R col9 */
-            , <&key_physical_attrs 100  100  1129   219   17000  1179   269>  /* R col10 */
-            , <&key_physical_attrs 100  100  1227   237  (-1000) 1277   287>  /* R col11 */
+            , <&key_physical_attrs 100  100   722   139        0   772   189>  /* R row1 col6 */
+            , <&key_physical_attrs 100  100   822   125        0   872   175>  /* R row1 col7 */
+            , <&key_physical_attrs 100  100   922    94        0   972   144>  /* R row1 col8 */
+            , <&key_physical_attrs 100  100  1031   134        0  1081   184>  /* R row1 col9 */
+            , <&key_physical_attrs 100  100  1129   219      500  1179   269>  /* R row1 col10 */
+            , <&key_physical_attrs 100  100  1227   237     1000  1277   287>  /* R row1 col11 */
         /* Row 2 - left */
-            , <&key_physical_attrs 100  100    33   330    1000    83   380>  /* L col0 */
-            , <&key_physical_attrs 100  100   131   312    1000   181   362>  /* L col1 */
-            , <&key_physical_attrs 100  100   221   228  (-17500)  271   278>  /* L col2 */
-            , <&key_physical_attrs 100  100   322   189   18000   372   239>  /* L col3 */
-            , <&key_physical_attrs 100  100   422   219   18000   472   269>  /* L col4 */
-            , <&key_physical_attrs 100  100   522   233   18000   572   283>  /* L col5 */
-        /* Inner extra bottom key - left RC(3,5) */
-            , <&key_physical_attrs 100  100   472   330  (-1500)  522   380>
-        /* Inner extra bottom key - right RC(3,6) */
-            , <&key_physical_attrs 100  100   771   330    1500   821   380>
+            , <&key_physical_attrs 100  100    33   330    -1000    83   380>  /* L row2 col0 */
+            , <&key_physical_attrs 100  100   131   312     -500   181   362>  /* L row2 col1 */
+            , <&key_physical_attrs 100  100   221   228        0   271   278>  /* L row2 col2 */
+            , <&key_physical_attrs 100  100   322   189        0   372   239>  /* L row2 col3 */
+            , <&key_physical_attrs 100  100   422   219        0   472   269>  /* L row2 col4 */
+            , <&key_physical_attrs 100  100   522   233        0   572   283>  /* L row2 col5 */
+        /* Inner extra bottom keys */
+            , <&key_physical_attrs 100  100   472   330        0   522   380>  /* L extra RC(3,5) */
+            , <&key_physical_attrs 100  100   771   330        0   821   380>  /* R extra RC(3,6) */
         /* Row 2 - right */
-            , <&key_physical_attrs 100  100   722   233   18000   772   283>  /* R col6 */
-            , <&key_physical_attrs 100  100   822   219   18000   872   269>  /* R col7 */
-            , <&key_physical_attrs 100  100   922   189   18000   972   239>  /* R col8 */
-            , <&key_physical_attrs 100  100  1022   228   17500  1072   278>  /* R col9 */
-            , <&key_physical_attrs 100  100  1112   312  (-1000) 1162   362>  /* R col10 */
-            , <&key_physical_attrs 100  100  1211   330  (-1000) 1261   380>  /* R col11 */
-        /* Thumb - left RC(3,1..4): GUI ALT SHIFT Nav, left-to-right */
-            , <&key_physical_attrs 100  100   363   339       0   413   389>  /* L thumb 1 (outer) */
-            , <&key_physical_attrs 100  100   575   372   15000   625   422>  /* L thumb 2 */
-            , <&key_physical_attrs 100  100   634   269   15000   684   319>  /* L thumb 3 */
-            , <&key_physical_attrs 100  100   662   440  (-4500)  712   490>  /* L thumb 4 (inner) */
-        /* Thumb - right RC(3,7..10): Sym SPACE ALT GUI, left-to-right */
-            , <&key_physical_attrs 100  100   582   440    4500   632   490>  /* R thumb 7 (inner) */
-            , <&key_physical_attrs 100  100   610   269  (-15000)  660   319>  /* R thumb 8 */
-            , <&key_physical_attrs 100  100   669   372  (-15000)  719   422>  /* R thumb 9 */
-            , <&key_physical_attrs 100  100   880   339       0   930   389>  /* R thumb 10 (outer) */
+            , <&key_physical_attrs 100  100   722   233        0   772   283>  /* R row2 col6 */
+            , <&key_physical_attrs 100  100   822   219        0   872   269>  /* R row2 col7 */
+            , <&key_physical_attrs 100  100   922   189        0   972   239>  /* R row2 col8 */
+            , <&key_physical_attrs 100  100  1022   228        0  1072   278>  /* R row2 col9 */
+            , <&key_physical_attrs 100  100  1112   312      500  1162   362>  /* R row2 col10 */
+            , <&key_physical_attrs 100  100  1211   330     1000  1261   380>  /* R row2 col11 */
+        /* Thumb - left RC(3,1..4) */
+            , <&key_physical_attrs 100  100   363   339        0   413   389>  /* L thumb RC(3,1) */
+            , <&key_physical_attrs 100  100   575   372        0   625   422>  /* L thumb RC(3,2) */
+            , <&key_physical_attrs 100  100   634   269        0   684   319>  /* L thumb RC(3,3) */
+            , <&key_physical_attrs 100  100   662   440        0   712   490>  /* L thumb RC(3,4) */
+        /* Thumb - right RC(3,7..10) */
+            , <&key_physical_attrs 100  100   582   440        0   632   490>  /* R thumb RC(3,7) */
+            , <&key_physical_attrs 100  100   610   269        0   660   319>  /* R thumb RC(3,8) */
+            , <&key_physical_attrs 100  100   669   372        0   719   422>  /* R thumb RC(3,9) */
+            , <&key_physical_attrs 100  100   880   339        0   930   389>  /* R thumb RC(3,10) */
             ;
     };
 };
