@@ -15,7 +15,7 @@
 </head>
 <body>
 <h2>HSHS46 Physical Layout — ZMK Studio View</h2>
-<p style="color:#aaa">Col <strong>4</strong> in DTSI: colinear centers + per-key <code>±15°</code> (ZMK Studio). <strong>Preview only:</strong> one SVG <code>rotate(±15°)</code> per side + axis-aligned caps (<code>100×100×SCALE</code> rects, no −2px inset) so centers match DTSI exactly. Pinky blocks <code>±19°</code>; cols <strong>5–6</strong> <code>1567/1672</code> (mirrored outer pair <code>58/163</code>).</p>
+<p style="color:#aaa">Col <strong>3</strong> spine (W/S/X, O/L/DOT) ±15°, preview one strip. Col <strong>4</strong> E/D/C &amp; I/K/, <code>rot</code> 0 · own‑centre <code>rx/ry</code> (no shared pivot stagger). Col <strong>0</strong> ESC/SFT CAPS/SPC share thumb pivot <code>(735,431)</code> / <code>(1095,431)</code>. Mirrors <code>hshs46-layouts.dtsi</code>.</p>
 <svg id="kb" xmlns="http://www.w3.org/2000/svg"></svg>
 
 <script>
@@ -54,8 +54,8 @@ const keys = [
   [408,  189,     0, 458,  239, "C",    'key'],
   [508,  219,     0, 558,  269, "V",    'key'],
   [608,  233,     0, 658,  283, "B",    'key'],
-  [731,  287,  2000,  781, 337, "ESC",  'key-esc'],
-  [999,  287, -2000, 1049, 337, "CAPS", 'key-esc'],
+  [685,  287,  2000,  735, 431, "ESC",  'key-esc'],
+  [1045, 287, -2000, 1095, 431, "CAPS", 'key-esc'],
   [1122, 233,     0, 1172, 283, "N",     'key'],
   [1222, 219,     0, 1272, 269, "M",     'key'],
   [1322, 189,     0, 1372, 239, "COMMA", 'key'],
@@ -122,10 +122,7 @@ function addKey(g, x, y, rot_cd, rx, ry, label, cls) {
   g.appendChild(inner);
 }
 
-/**
- * Inverse of SVG rotate(deg, cx, cy). SVG uses R = [[c,-s],[s,c]] on (x-cx,y-cy);
- * inverse is R^T: local = pivot + R^T * (world - pivot).
- */
+/** Inverse SVG rotate(deg,pivot): local = pivot + Rᵀ(world−pivot). Layout units; y-down. */
 function layoutUnrotate(wx, wy, deg, cx, cy) {
   const r = (deg * Math.PI) / 180;
   const c = Math.cos(r);
@@ -135,7 +132,7 @@ function layoutUnrotate(wx, wy, deg, cx, cy) {
   return [cx + c * ox + s * oy, cy - s * ox + c * oy];
 }
 
-/** Draw col 4 as one rotated strip: centers match DTSI (rx, ry); rects use full W×H×SCALE so pivot math is not skewed by the −2 px inset used elsewhere). */
+/** Finger ring strip: rects axis-aligned, one group rotate ±15° (matches doc / Studio pivot line). */
 function addCol4Strip(parent, rows, deg, pivotCx, pivotCy) {
   const prx = pivotCx * SCALE + offX;
   const pry = pivotCy * SCALE + offY;
@@ -148,23 +145,18 @@ function addCol4Strip(parent, rows, deg, pivotCx, pivotCy) {
     const [lx, ly] = layoutUnrotate(rx, ry, deg, pivotCx, pivotCy);
     const cxL = lx * SCALE + offX;
     const cyL = ly * SCALE + offY;
-    const px = cxL - pw / 2;
-    const py = cyL - ph / 2;
-
     const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-    rect.setAttribute('x', px);
-    rect.setAttribute('y', py);
+    rect.setAttribute('x', cxL - pw / 2);
+    rect.setAttribute('y', cyL - ph / 2);
     rect.setAttribute('width', pw);
     rect.setAttribute('height', ph);
     rect.setAttribute('rx', 3);
     rect.setAttribute('class', 'key');
-
     const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
     text.setAttribute('x', cxL);
     text.setAttribute('y', cyL);
     text.setAttribute('class', 'key-text');
     text.textContent = label;
-
     g.appendChild(rect);
     g.appendChild(text);
   });
@@ -173,13 +165,15 @@ function addCol4Strip(parent, rows, deg, pivotCx, pivotCy) {
 
 const pinky56 = keys.filter((k) => k[6] === 'key-pinky56');
 const pinky56L = keys.filter((k) => k[6] === 'key-pinky56-L');
-const col4R = keys.filter((k) => k[6] === 'key-col4-R').sort((a, b) => a[1] - b[1]); /* O, L, DOT by y */
-const col4L = keys.filter((k) => k[6] === 'key-col4-L').sort((a, b) => a[1] - b[1]); /* W, S, X by y */
+const col4R = keys.filter((k) => k[6] === 'key-col4-R').sort((a, b) => a[1] - b[1]);
+const col4L = keys.filter((k) => k[6] === 'key-col4-L').sort((a, b) => a[1] - b[1]);
+const keyEscCaps = keys.filter((k) => k[6] === 'key-esc');
 const rest = keys.filter((k) =>
   k[6] !== 'key-pinky56'
   && k[6] !== 'key-pinky56-L'
   && k[6] !== 'key-col4-R'
-  && k[6] !== 'key-col4-L');
+  && k[6] !== 'key-col4-L'
+  && k[6] !== 'key-esc');
 
 rest.forEach((row) => addKey(svg, ...row));
 
@@ -197,9 +191,9 @@ g56.setAttribute('transform', `rotate(${PINKY56_ROT_DEG}, ${prxBlock}, ${pryBloc
 pinky56.forEach(([x, y, rot_cd, rx, ry, label, cls]) => addKey(g56, x, y, rot_cd, rx, ry, label, 'key'));
 svg.appendChild(g56);
 
-/* Column 4: pivot at ring row1 center (L / S) — straight strip in preview */
 addCol4Strip(svg, col4L, -15, 303, 184);
 addCol4Strip(svg, col4R, 15, 1527, 184);
+keyEscCaps.forEach((row) => addKey(svg, ...row));
 </script>
 </body>
 </html>

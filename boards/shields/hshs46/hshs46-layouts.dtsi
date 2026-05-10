@@ -19,45 +19,45 @@
             = <&key_physical_attrs 100  100    58   176        0   108   226>  /* L row0 col0 grave */
             , <&key_physical_attrs 100  100   163   176        0   213   226>  /* L row0 col1 Q */
             , <&key_physical_attrs 100  100   219    39  (-1500)   269    89>  /* L row0 col2 W */
-            , <&key_physical_attrs 100  100   408     0        0   458    50>  /* L row0 col3 */
-            , <&key_physical_attrs 100  100   508    31        0   558    81>  /* L row0 col4 */
+            , <&key_physical_attrs 100  100   408     0        0   458    50>  /* L row0 col3 E */
+            , <&key_physical_attrs 100  100   508    31        0   558    81>  /* L row0 col4 R */
             , <&key_physical_attrs 100  100   608    44        0   658    94>  /* L row0 col5 T */
         /* Row 0 - right */
             , <&key_physical_attrs 100  100  1122    44        0  1172    94>  /* R row0 col6 Y */
-            , <&key_physical_attrs 100  100  1222    31        0  1272    81>  /* R row0 col7 */
-            , <&key_physical_attrs 100  100  1322     0        0  1372    50>  /* R row0 col8 */
-            , <&key_physical_attrs 100  100  1511    39     1500  1561    89>  /* R col4 row0 O */
+            , <&key_physical_attrs 100  100  1222    31        0  1272    81>  /* R row0 col7 U */
+            , <&key_physical_attrs 100  100  1322     0        0  1372    50>  /* R row0 col8 I */
+            , <&key_physical_attrs 100  100  1511    39     1500  1561    89>  /* R col3 row0 O */
             , <&key_physical_attrs 100  100  1567   176        0  1617   226>  /* R col5 row0 P */
             , <&key_physical_attrs 100  100  1672   176        0  1722   226>  /* R col6 row0 BSPC */
         /* Row 1 - left (mirror ENTER,SEMI,L,K,J,H) */
             , <&key_physical_attrs 100  100    58   269        0   108   319>  /* L row1 col0 TAB */
             , <&key_physical_attrs 100  100   163   269        0   213   319>  /* L row1 col1 A */
             , <&key_physical_attrs 100  100   253   134  (-1500)   303   184>  /* L row1 col2 S */
-            , <&key_physical_attrs 100  100   408    94        0   458   144>  /* L row1 col3 */
-            , <&key_physical_attrs 100  100   508   125        0   558   175>  /* L row1 col4 */
+            , <&key_physical_attrs 100  100   408    94        0   458   144>  /* L row1 col3 D */
+            , <&key_physical_attrs 100  100   508   125        0   558   175>  /* L row1 col4 F */
             , <&key_physical_attrs 100  100   608   139        0   658   189>  /* L row1 col5 G */
         /* Row 1 - right */
             , <&key_physical_attrs 100  100  1122   139        0  1172   189>  /* R row1 col6 H */
-            , <&key_physical_attrs 100  100  1222   125        0  1272   175>  /* R row1 col7 */
-            , <&key_physical_attrs 100  100  1322    94        0  1372   144>  /* R row1 col8 */
-            , <&key_physical_attrs 100  100  1477   134     1500  1527   184>  /* R col4 row1 L */
+            , <&key_physical_attrs 100  100  1222   125        0  1272   175>  /* R row1 col7 J */
+            , <&key_physical_attrs 100  100  1322    94        0  1372   144>  /* R row1 col8 K */
+            , <&key_physical_attrs 100  100  1477   134     1500  1527   184>  /* R col3 row1 L */
             , <&key_physical_attrs 100  100  1567   269        0  1617   319>  /* R col5 row1 SEMI */
             , <&key_physical_attrs 100  100  1672   269        0  1722   319>  /* R col6 row1 ENTER */
         /* Row 2 - left (mirror SQT,SLASH,DOT,COMMA,M,N) */
             , <&key_physical_attrs 100  100    58   362        0   108   412>  /* L row2 col0 CTL */
             , <&key_physical_attrs 100  100   163   362        0   213   412>  /* L row2 col1 Z */
             , <&key_physical_attrs 100  100   287   229  (-1500)   337   279>  /* L row2 col2 X */
-            , <&key_physical_attrs 100  100   408   189        0   458   239>  /* L row2 col3 */
-            , <&key_physical_attrs 100  100   508   219        0   558   269>  /* L row2 col4 */
+            , <&key_physical_attrs 100  100   408   189        0   458   239>  /* L row2 col3 C */
+            , <&key_physical_attrs 100  100   508   219        0   558   269>  /* L row2 col4 V */
             , <&key_physical_attrs 100  100   608   233        0   658   283>  /* L row2 col5 B */
-        /* Inner extra bottom keys */
-            , <&key_physical_attrs 100  100   731   287     2000   781   337>  /* L extra RC(3,5) mirror R CAPS */
-            , <&key_physical_attrs 100  100   999   287  (-2000)  1049   337>  /* R extra RC(3,6) */
+        /* Inner extra bottom keys — col 0: pivot on SFT / SPC (no separate ry stagger) */
+            , <&key_physical_attrs 100  100   685   287     2000   735   431>  /* L ESC */
+            , <&key_physical_attrs 100  100  1045   287  (-2000)  1095   431>  /* R CAPS */
         /* Row 2 - right */
             , <&key_physical_attrs 100  100  1122   233        0  1172   283>  /* R row2 col6 N */
-            , <&key_physical_attrs 100  100  1222   219        0  1272   269>  /* R row2 col7 */
-            , <&key_physical_attrs 100  100  1322   189        0  1372   239>  /* R row2 col8 */
-            , <&key_physical_attrs 100  100  1443   229     1500  1493   279>  /* R col4 row2 DOT */
+            , <&key_physical_attrs 100  100  1222   219        0  1272   269>  /* R row2 col7 M */
+            , <&key_physical_attrs 100  100  1322   189        0  1372   239>  /* R row2 col8 comma */
+            , <&key_physical_attrs 100  100  1443   229     1500  1493   279>  /* R col3 row2 DOT */
             , <&key_physical_attrs 100  100  1567   362        0  1617   412>  /* R col5 row2 SLASH */
             , <&key_physical_attrs 100  100  1672   362        0  1722   412>  /* R col6 row2 SQT */
         /* Thumb - left RC(3,1..4): mirror right (+12 split gap vs prior) */
