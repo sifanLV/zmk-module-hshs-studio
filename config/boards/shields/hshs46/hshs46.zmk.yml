@@ -6,6 +6,7 @@ url: https://beekeeb.com
 requires: [pro_micro]
 features:
   - keys
+  - pointer
   - studio
 siblings:
   - hshs46_left

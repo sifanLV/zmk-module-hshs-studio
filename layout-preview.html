@@ -2,198 +2,328 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>HSHS46 Layout Preview</title>
+<title>HSHS46 Layout Preview — All Layers</title>
 <style>
   body { background: #1a1a2e; margin: 20px; font-family: monospace; color: #eee; }
-  h2 { color: #e94560; }
-  svg { background: #16213e; border-radius: 8px; padding: 10px; display: block; }
+  h2 { color: #e94560; margin-bottom: 0.35em; }
+  h3 { color: #00b4d8; font-size: 1.05rem; margin: 1.5em 0 0.5em 0; font-weight: 600; border-bottom: 1px solid #334155; padding-bottom: 0.35em; }
+  h4 { color: #94a3b8; font-size: 0.8rem; margin: 0 0 0.6em 0; font-weight: 600; letter-spacing: 0.02em; }
+  .intro { color: #aaa; max-width: 980px; line-height: 1.45; margin-bottom: 1em; }
+  .intro code { color: #cfe; }
+  .layers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; align-items: start; }
+  .layer-card { background: #16213e22; border-radius: 8px; padding: 12px; border: 1px solid #33415555; }
+  .layer-card svg { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+  .section-note { color: #64748b; font-size: 0.75rem; margin: -0.25em 0 1em 0; }
   .key { stroke: #e94560; stroke-width: 1; fill: #0f3460; }
-  .key-text { fill: #eee; font-family: monospace; font-size: 7px; text-anchor: middle; dominant-baseline: central; }
+  .key-text { fill: #eee; font-family: monospace; font-size: 6.5px; text-anchor: middle; dominant-baseline: central; }
   .key-thumb { stroke: #00b4d8; stroke-width: 1.5; fill: #023e8a; }
   .key-esc { stroke: #f4a261; stroke-width: 1.5; fill: #6d3a1f; }
 </style>
 </head>
 <body>
-<h2>HSHS46 Physical Layout — ZMK Studio View</h2>
-<p style="color:#aaa">Col <strong>3</strong> spine (W/S/X, O/L/DOT) ±15°, preview one strip. Col <strong>4</strong> E/D/C &amp; I/K/, <code>rot</code> 0 · own‑centre <code>rx/ry</code> (no shared pivot stagger). Col <strong>0</strong> ESC/SFT CAPS/SPC share thumb pivot <code>(735,431)</code> / <code>(1095,431)</code>. Mirrors <code>hshs46-layouts.dtsi</code>.</p>
-<svg id="kb" xmlns="http://www.w3.org/2000/svg"></svg>
+<h2>HSHS46 — Physical layout preview (all keymap layers)</h2>
+<p class="intro">Geometry matches <code>hshs46-layouts.dtsi</code> (<code>x/y</code>, <code>rx/ry</code>, rotation). Legends are short labels for each layer in <code>boards/shields/hshs46/hshs46.keymap</code> vs <code>config/boards/shields/hshs46/hshs46.keymap</code>. <code>—</code> = <code>&amp;none</code>, <code>TR</code> = <code>&amp;trans</code>.</p>
 
 <script>
-const SCALE = 0.38;
+const SCALE = 0.30;
 const W = 100, H = 100;
 
-// [x, y, rot_centideg, rx, ry, label, cls] — matches DTSI; right cols 5–6 + left mirrored outer pair: rot 0 in DTSI, SVG group tilt
-const keys = [
-  [58,   176,     0, 108,  226, "`",    'key-pinky56-L'],
-  [163,  176,     0, 213,  226, "Q",    'key-pinky56-L'],
-  [219,   39, -1500, 269,   89, "W",    'key-col4-L'],
-  [408,    0,     0, 458,   50, "E",    'key'],
-  [508,   31,     0, 558,   81, "R",    'key'],
-  [608,   44,     0, 658,   94, "T",    'key'],
-  [1122,  44,     0, 1172,  94, "Y",    'key'],
-  [1222,  31,     0, 1272,  81, "U",    'key'],
-  [1322,   0,     0, 1372,  50, "I",    'key'],
-  [1511,  39,  1500, 1561,  89, "O",    'key-col4-R'],
-  [1567, 176,     0, 1617, 226, "P",    'key-pinky56'],
-  [1672, 176,     0, 1722, 226, "BSPC", 'key-pinky56'],
-  [58,   269,     0, 108,  319, "TAB",  'key-pinky56-L'],
-  [163,  269,     0, 213,  319, "A",    'key-pinky56-L'],
-  [253,  134, -1500, 303,  184, "S",    'key-col4-L'],
-  [408,   94,     0, 458,  144, "D",    'key'],
-  [508,  125,     0, 558,  175, "F",    'key'],
-  [608,  139,     0, 658,  189, "G",    'key'],
-  [1122, 139,     0, 1172, 189, "H",    'key'],
-  [1222, 125,     0, 1272, 175, "J",    'key'],
-  [1322,  94,     0, 1372, 144, "K",    'key'],
-  [1477, 134,  1500, 1527, 184, "L",    'key-col4-R'],
-  [1567, 269,     0, 1617, 319, "SEMI", 'key-pinky56'],
-  [1672, 269,     0, 1722, 319, "ENTER",'key-pinky56'],
-  [58,   362,     0, 108,  412, "CTL",  'key-pinky56-L'],
-  [163,  362,     0, 213,  412, "Z",    'key-pinky56-L'],
-  [287,  229, -1500, 337,  279, "X",    'key-col4-L'],
-  [408,  189,     0, 458,  239, "C",    'key'],
-  [508,  219,     0, 558,  269, "V",    'key'],
-  [608,  233,     0, 658,  283, "B",    'key'],
-  [685,  287,  2000,  735, 431, "ESC",  'key-esc'],
-  [1045, 287, -2000, 1095, 431, "CAPS", 'key-esc'],
-  [1122, 233,     0, 1172, 283, "N",     'key'],
-  [1222, 219,     0, 1272, 269, "M",     'key'],
-  [1322, 189,     0, 1372, 239, "COMMA", 'key'],
-  [1443, 229,  1500, 1493, 279, "DOT",   'key-col4-R'],
-  [1567, 362,     0, 1617, 412, "SLASH", 'key-pinky56'],
-  [1672, 362,     0, 1722, 412, "SQT",   'key-pinky56'],
-  [446,  339,     0,  496, 389, "GUI",  'key-thumb'],
-  [568,  350,  1000,  618, 400, "ALT",  'key-thumb'],
-  [685,  381,  2000,  735, 431, "SFT",  'key-thumb'],
-  [796,  433,  3000,  846, 483, "NAV",  'key-thumb'],
-  [934,  433, -3000,  984, 483, "SYM",  'key-thumb'],
-  [1045, 381, -2000, 1095, 431, "SPC",  'key-thumb'],
-  [1162, 350, -1000, 1212, 400, "ALT",  'key-thumb'],
-  [1284, 339,     0, 1334, 389, "GUI",  'key-thumb'],
-];
+/** 46 keys: row0 (12) + row1 (12) + row2 (14) + thumbs (8) */
+function geometryLabels(labels) {
+  const L = labels;
+  let i = 0;
+  return [
+    [58,   176,     0, 108,  226, L[i++], 'key-pinky56-L'],
+    [163,  176,     0, 213,  226, L[i++], 'key-pinky56-L'],
+    [219,   39, -1500, 269,   89, L[i++], 'key-col4-L'],
+    [408,    0,     0, 458,   50, L[i++], 'key'],
+    [508,   31,     0, 558,   81, L[i++], 'key'],
+    [608,   44,     0, 658,   94, L[i++], 'key'],
+    [1122,  44,     0, 1172,  94, L[i++], 'key'],
+    [1222,  31,     0, 1272,  81, L[i++], 'key'],
+    [1322,   0,     0, 1372,  50, L[i++], 'key'],
+    [1511,  39,  1500, 1561,  89, L[i++], 'key-col4-R'],
+    [1567, 176,     0, 1617, 226, L[i++], 'key-pinky56'],
+    [1672, 176,     0, 1722, 226, L[i++], 'key-pinky56'],
+    [58,   269,     0, 108,  319, L[i++], 'key-pinky56-L'],
+    [163,  269,     0, 213,  319, L[i++], 'key-pinky56-L'],
+    [253,  134, -1500, 303,  184, L[i++], 'key-col4-L'],
+    [408,   94,     0, 458,  144, L[i++], 'key'],
+    [508,  125,     0, 558,  175, L[i++], 'key'],
+    [608,  139,     0, 658,  189, L[i++], 'key'],
+    [1122, 139,     0, 1172, 189, L[i++], 'key'],
+    [1222, 125,     0, 1272, 175, L[i++], 'key'],
+    [1322,  94,     0, 1372, 144, L[i++], 'key'],
+    [1477, 134,  1500, 1527, 184, L[i++], 'key-col4-R'],
+    [1567, 269,     0, 1617, 319, L[i++], 'key-pinky56'],
+    [1672, 269,     0, 1722, 319, L[i++], 'key-pinky56'],
+    [58,   362,     0, 108,  412, L[i++], 'key-pinky56-L'],
+    [163,  362,     0, 213,  412, L[i++], 'key-pinky56-L'],
+    [287,  229, -1500, 337,  279, L[i++], 'key-col4-L'],
+    [408,  189,     0, 458,  239, L[i++], 'key'],
+    [508,  219,     0, 558,  269, L[i++], 'key'],
+    [608,  233,     0, 658,  283, L[i++], 'key'],
+    [685,  287,  2000,  735, 431, L[i++], 'key-esc'],
+    [1045, 287, -2000, 1095, 431, L[i++], 'key-esc'],
+    [1122, 233,     0, 1172, 283, L[i++], 'key'],
+    [1222, 219,     0, 1272, 269, L[i++], 'key'],
+    [1322, 189,     0, 1372, 239, L[i++], 'key'],
+    [1443, 229,  1500, 1493, 279, L[i++], 'key-col4-R'],
+    [1567, 362,     0, 1617, 412, L[i++], 'key-pinky56'],
+    [1672, 362,     0, 1722, 412, L[i++], 'key-pinky56'],
+    [446,  339,     0,  496, 389, L[i++], 'key-thumb'],
+    [568,  350,  1000,  618, 400, L[i++], 'key-thumb'],
+    [685,  381,  2000,  735, 431, L[i++], 'key-thumb'],
+    [796,  433,  3000,  846, 483, L[i++], 'key-thumb'],
+    [934,  433, -3000,  984, 483, L[i++], 'key-thumb'],
+    [1045, 381, -2000, 1095, 431, L[i++], 'key-thumb'],
+    [1162, 350, -1000, 1212, 400, L[i++], 'key-thumb'],
+    [1284, 339,     0, 1334, 389, L[i++], 'key-thumb'],
+  ];
+}
 
-/** Rigid +19° for right cols 5+6: bbox x∈[1567,1772], y∈[176,462] */
 const PINKY56_ROT_DEG = 19;
 const PINKY56_CX = (1567 + 1772) / 2;
 const PINKY56_CY = (176 + 462) / 2;
-
-/** Rigid −19° for mirrored left outer pair (grave/Q…CTL/Z): bbox x∈[58,263] */
 const PINKY56L_ROT_DEG = -19;
 const PINKY56L_CX = (58 + 263) / 2;
 const PINKY56L_CY = PINKY56_CY;
 
-const svg = document.getElementById('kb');
-let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
-keys.forEach(([x, y]) => {
-  minX = Math.min(minX, x); minY = Math.min(minY, y);
-  maxX = Math.max(maxX, x + W); maxY = Math.max(maxY, y + H);
-});
+/** boards/shields/hshs46/hshs46.keymap — order: default, dvorak, colemak, nav, sym, adj */
+const MODULE_LAYERS = [
+  { id: 'mod-def', title: 'default_layer · QWERTY', labels: [
+    '`', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'BSPC',
+    'TAB', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'SEMI', 'ENT',
+    'LCTL', 'Z', 'X', 'C', 'V', 'B', 'ESC', 'CAPWD', 'N', 'M', ',', '.', '/', "'",
+    'GUI', 'ALT', 'SK-SFT', 'NAV', 'SYM', 'SPC', 'ALT', 'GUI',
+  ]},
+  { id: 'mod-dvk', title: 'dvorak_layer', labels: [
+    '`', "'", ',', '.', 'P', 'Y', 'F', 'G', 'C', 'R', 'L', 'BSPC',
+    'TAB', 'A', 'O', 'E', 'U', 'I', 'D', 'H', 'T', 'N', 'S', 'ENT',
+    'LCTL', ';', 'Q', 'J', 'K', 'X', 'ESC', 'CAPWD', 'B', 'M', 'W', 'V', 'Z', '/',
+    'GUI', 'ALT', 'SK-SFT', 'NAV', 'SYM', 'SPC', 'ALT', 'GUI',
+  ]},
+  { id: 'mod-cmk', title: 'colemak_layer', labels: [
+    '`', 'Q', 'W', 'F', 'P', 'B', 'J', 'L', 'U', 'Y', ';', 'BSPC',
+    'TAB', 'A', 'R', 'S', 'T', 'G', 'M', 'N', 'E', 'I', 'O', 'ENT',
+    'LCTL', 'Z', 'X', 'C', 'D', 'V', 'ESC', 'CAPWD', 'K', 'H', ',', '.', '/', "'",
+    'GUI', 'ALT', 'SK-SFT', 'NAV', 'SYM', 'SPC', 'ALT', 'GUI',
+  ]},
+  { id: 'mod-nav', title: 'nav_layer', labels: [
+    'CPY', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'TR',
+    'CUT', 'GUI', 'ALT', 'LCTL', 'LSFT', 'PST', 'PG↑', '←', '↑', '↓', '→', 'PG↓',
+    'TR', 'F1', 'F2', 'F3', 'F4', 'F5', 'UND', 'RDO', 'F6', 'F7', 'F8', 'F9', 'F10', 'RCTL',
+    'TR', 'TR', 'TR', 'TR', 'ADJ', 'TR', 'TR', 'TR',
+  ]},
+  { id: 'mod-sym', title: 'sym_layer', labels: [
+    'INS', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', 'DEL',
+    '—', '\\', '-', '=', '[', ']', 'HOME', 'RSFT', 'RCTL', 'LALT', 'RGUI', 'END',
+    'TR', '|', '_', '+', '{', '}', 'RALT*', 'MENU', 'MUTE', 'V-', 'V+', '▶', '—', 'RCTL',
+    'TR', 'TR', 'TR', 'ADJ', 'TR', 'TR', 'TR', 'TR',
+  ]},
+  { id: 'mod-adj', title: 'adj_layer', labels: [
+    'STUDIO', 'QTY', 'DVK', 'CMK', '—', '—', '—', 'F11', 'F12', 'PRT', 'EP-', 'EP+',
+    'RST', 'BT0', 'BT1', 'BT2', 'BT3', 'BT4', '—', '—', '—', '—', '—', 'RST',
+    '—', 'GUI', 'ALT', 'LCTL', 'LSFT', '—', 'BTCLR', '—', '—', '—', 'USB', 'BLE', '—', 'BOOT',
+    'TR', 'TR', 'TR', 'TR', 'TR', 'TR', 'TR', 'TR',
+  ]},
+];
 
-const PAD = 28;
-const svgW = (maxX - minX) * SCALE + PAD * 2;
-const svgH = (maxY - minY) * SCALE + PAD * 2;
-svg.setAttribute('width', svgW);
-svg.setAttribute('height', svgH);
-svg.setAttribute('viewBox', `0 0 ${svgW} ${svgH}`);
+/** config/boards/shields/hshs46/hshs46.keymap */
+const CONFIG_LAYERS = [
+  { id: 'cfg-def', title: 'default_layer', labels: [
+    'TAB', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'ENT',
+    '—', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ':', '—',
+    '—', 'Z', 'X', 'C', 'V', 'B', 'ESC', 'BSPC', 'N', 'M', ',', '.', '/', '—',
+    'GUI', 'SFT', 'SPC', 'TO0', 'NAV', 'SYM', 'RCTL', 'RALT',
+  ]},
+  { id: 'cfg-sym', title: 'sym_layer', labels: [
+    'TAB', '—', '@', '#', '$', '%', '\\', '[', ']', '|', '—', 'ENT',
+    '—', '—', '!', '?', '-', '"', '=', '{', '}', ';', '—', '—',
+    '—', '<', '~', '>', '_', "'", 'ESC', 'BSPC', '^', '(', ')', '&', '—', '—',
+    'GUI', 'SFT', 'SPC', 'TO0', 'NAV', 'NUM', 'RCTL', 'RALT',
+  ]},
+  { id: 'cfg-num', title: 'num_layer', labels: [
+    'TAB', '—', 'V-', 'V+', 'B-', 'B+', '`', '7', '8', '9', '—', 'ENT',
+    '—', '—', '/', '*', '-', '+', '=', '4', '5', '6', '—', '—',
+    '—', '▶', '⏮', '⏭', '_', '.', 'ESC', 'BSPC', '0', '1', '2', '3', '—', '—',
+    'GUI', 'SFT', 'SPC', 'TO0', 'NAV', 'SYM', 'RCTL', 'RALT',
+  ]},
+  { id: 'cfg-nav', title: 'nav_layer · pointing', labels: [
+    'TAB', '—', 'S←', 'M↑', 'S→', 'DEL', 'S↓', 'M1', 'M2', 'S↑', '—', 'ENT',
+    '—', '—', 'M←', 'M↓', 'M→', 'INS', '←', '↓', '↑', '→', '—', '—',
+    '—', 'M4', 'LST', 'CTB', 'M5', 'APP', 'ESC', 'BSPC', 'HOME', 'PG↓', 'PG↑', 'END', 'ADM', '—',
+    'GUI', 'SFT', 'SPC', 'TO0', 'NAV', 'SYM', 'RCTL', 'RALT',
+  ]},
+  { id: 'cfg-adm', title: 'admin_layer', labels: [
+    'TAB', 'BOOT', '—', '—', '—', 'STUDIO', '—', '—', 'BTCLR', '—', 'BOOT', 'ENT',
+    '—', 'RST', '—', '—', '—', '—', '←', 'BT4', '—', '→', 'RST', '—',
+    '—', '—', '—', '—', '—', '—', 'ESC', 'BSPC', 'BT0', 'BT1', 'BT2', 'BT3', '—', '—',
+    'GUI', 'SFT', 'SPC', 'TO0', 'NAV', 'SYM', 'RCTL', 'RALT',
+  ]},
+];
 
-const offX = -minX * SCALE + PAD;
-const offY = -minY * SCALE + PAD;
+function renderKeyboard(svgId, keys) {
+  const svg = document.getElementById(svgId);
+  if (!svg) return;
+  while (svg.firstChild) svg.removeChild(svg.firstChild);
 
-function addKey(g, x, y, rot_cd, rx, ry, label, cls) {
-  const px = x * SCALE + offX, py = y * SCALE + offY;
-  const pw = W * SCALE - 2, ph = H * SCALE - 2;
-  const prx = rx * SCALE + offX, pry = ry * SCALE + offY;
-  const deg = rot_cd / 100;
-
-  const inner = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-  if (deg !== 0) inner.setAttribute('transform', `rotate(${deg}, ${prx}, ${pry})`);
-
-  const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-  rect.setAttribute('x', px); rect.setAttribute('y', py);
-  rect.setAttribute('width', pw); rect.setAttribute('height', ph);
-  rect.setAttribute('rx', 3); rect.setAttribute('class', cls);
-
-  const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-  text.setAttribute('x', px + pw / 2); text.setAttribute('y', py + ph / 2);
-  text.setAttribute('class', 'key-text'); text.textContent = label;
-
-  inner.appendChild(rect);
-  inner.appendChild(text);
-  g.appendChild(inner);
-}
-
-/** Inverse SVG rotate(deg,pivot): local = pivot + Rᵀ(world−pivot). Layout units; y-down. */
-function layoutUnrotate(wx, wy, deg, cx, cy) {
-  const r = (deg * Math.PI) / 180;
-  const c = Math.cos(r);
-  const s = Math.sin(r);
-  const ox = wx - cx;
-  const oy = wy - cy;
-  return [cx + c * ox + s * oy, cy - s * ox + c * oy];
-}
-
-/** Finger ring strip: rects axis-aligned, one group rotate ±15° (matches doc / Studio pivot line). */
-function addCol4Strip(parent, rows, deg, pivotCx, pivotCy) {
-  const prx = pivotCx * SCALE + offX;
-  const pry = pivotCy * SCALE + offY;
-  const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-  g.setAttribute('transform', `rotate(${deg}, ${prx}, ${pry})`);
-  const pw = W * SCALE;
-  const ph = H * SCALE;
-  rows.forEach((row) => {
-    const [, , , rx, ry, label] = row;
-    const [lx, ly] = layoutUnrotate(rx, ry, deg, pivotCx, pivotCy);
-    const cxL = lx * SCALE + offX;
-    const cyL = ly * SCALE + offY;
-    const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-    rect.setAttribute('x', cxL - pw / 2);
-    rect.setAttribute('y', cyL - ph / 2);
-    rect.setAttribute('width', pw);
-    rect.setAttribute('height', ph);
-    rect.setAttribute('rx', 3);
-    rect.setAttribute('class', 'key');
-    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-    text.setAttribute('x', cxL);
-    text.setAttribute('y', cyL);
-    text.setAttribute('class', 'key-text');
-    text.textContent = label;
-    g.appendChild(rect);
-    g.appendChild(text);
+  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+  keys.forEach(([x, y]) => {
+    minX = Math.min(minX, x); minY = Math.min(minY, y);
+    maxX = Math.max(maxX, x + W); maxY = Math.max(maxY, y + H);
   });
-  parent.appendChild(g);
+
+  const PAD = 24;
+  const svgW = (maxX - minX) * SCALE + PAD * 2;
+  const svgH = (maxY - minY) * SCALE + PAD * 2;
+  svg.setAttribute('width', svgW);
+  svg.setAttribute('height', svgH);
+  svg.setAttribute('viewBox', `0 0 ${svgW} ${svgH}`);
+
+  const offX = -minX * SCALE + PAD;
+  const offY = -minY * SCALE + PAD;
+
+  function addKey(g, x, y, rot_cd, rx, ry, label, cls) {
+    const px = x * SCALE + offX, py = y * SCALE + offY;
+    const pw = W * SCALE - 2, ph = H * SCALE - 2;
+    const prx = rx * SCALE + offX, pry = ry * SCALE + offY;
+    const deg = rot_cd / 100;
+
+    const inner = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    if (deg !== 0) inner.setAttribute('transform', `rotate(${deg}, ${prx}, ${pry})`);
+
+    const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    rect.setAttribute('x', px); rect.setAttribute('y', py);
+    rect.setAttribute('width', pw); rect.setAttribute('height', ph);
+    rect.setAttribute('rx', 3); rect.setAttribute('class', cls);
+
+    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    text.setAttribute('x', px + pw / 2); text.setAttribute('y', py + ph / 2);
+    text.setAttribute('class', 'key-text'); text.textContent = label;
+
+    inner.appendChild(rect);
+    inner.appendChild(text);
+    g.appendChild(inner);
+  }
+
+  function layoutUnrotate(wx, wy, deg, cx, cy) {
+    const r = (deg * Math.PI) / 180;
+    const c = Math.cos(r);
+    const s = Math.sin(r);
+    const ox = wx - cx;
+    const oy = wy - cy;
+    return [cx + c * ox + s * oy, cy - s * ox + c * oy];
+  }
+
+  function addCol4Strip(parent, rows, deg, pivotCx, pivotCy) {
+    const prx = pivotCx * SCALE + offX;
+    const pry = pivotCy * SCALE + offY;
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.setAttribute('transform', `rotate(${deg}, ${prx}, ${pry})`);
+    const pw = W * SCALE;
+    const ph = H * SCALE;
+    rows.forEach((row) => {
+      const [, , , rx, ry, label] = row;
+      const [lx, ly] = layoutUnrotate(rx, ry, deg, pivotCx, pivotCy);
+      const cxL = lx * SCALE + offX;
+      const cyL = ly * SCALE + offY;
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', cxL - pw / 2);
+      rect.setAttribute('y', cyL - ph / 2);
+      rect.setAttribute('width', pw);
+      rect.setAttribute('height', ph);
+      rect.setAttribute('rx', 3);
+      rect.setAttribute('class', 'key');
+      const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      text.setAttribute('x', cxL);
+      text.setAttribute('y', cyL);
+      text.setAttribute('class', 'key-text');
+      text.textContent = label;
+      g.appendChild(rect);
+      g.appendChild(text);
+    });
+    parent.appendChild(g);
+  }
+
+  const pinky56 = keys.filter((k) => k[6] === 'key-pinky56');
+  const pinky56L = keys.filter((k) => k[6] === 'key-pinky56-L');
+  const col4R = keys.filter((k) => k[6] === 'key-col4-R').sort((a, b) => a[1] - b[1]);
+  const col4L = keys.filter((k) => k[6] === 'key-col4-L').sort((a, b) => a[1] - b[1]);
+  const keyEscCaps = keys.filter((k) => k[6] === 'key-esc');
+  const rest = keys.filter((k) =>
+    k[6] !== 'key-pinky56'
+    && k[6] !== 'key-pinky56-L'
+    && k[6] !== 'key-col4-R'
+    && k[6] !== 'key-col4-L'
+    && k[6] !== 'key-esc');
+
+  rest.forEach((row) => addKey(svg, ...row));
+
+  const g56L = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  const prxL = PINKY56L_CX * SCALE + offX;
+  const pryL = PINKY56L_CY * SCALE + offY;
+  g56L.setAttribute('transform', `rotate(${PINKY56L_ROT_DEG}, ${prxL}, ${pryL})`);
+  pinky56L.forEach(([x, y, rot_cd, rx, ry, label]) => addKey(g56L, x, y, rot_cd, rx, ry, label, 'key'));
+  svg.appendChild(g56L);
+
+  const g56 = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  const prxBlock = PINKY56_CX * SCALE + offX;
+  const pryBlock = PINKY56_CY * SCALE + offY;
+  g56.setAttribute('transform', `rotate(${PINKY56_ROT_DEG}, ${prxBlock}, ${pryBlock})`);
+  pinky56.forEach(([x, y, rot_cd, rx, ry, label, cls]) => addKey(g56, x, y, rot_cd, rx, ry, label, 'key'));
+  svg.appendChild(g56);
+
+  addCol4Strip(svg, col4L, -15, 303, 184);
+  addCol4Strip(svg, col4R, 15, 1527, 184);
+  keyEscCaps.forEach((row) => addKey(svg, ...row));
 }
 
-const pinky56 = keys.filter((k) => k[6] === 'key-pinky56');
-const pinky56L = keys.filter((k) => k[6] === 'key-pinky56-L');
-const col4R = keys.filter((k) => k[6] === 'key-col4-R').sort((a, b) => a[1] - b[1]);
-const col4L = keys.filter((k) => k[6] === 'key-col4-L').sort((a, b) => a[1] - b[1]);
-const keyEscCaps = keys.filter((k) => k[6] === 'key-esc');
-const rest = keys.filter((k) =>
-  k[6] !== 'key-pinky56'
-  && k[6] !== 'key-pinky56-L'
-  && k[6] !== 'key-col4-R'
-  && k[6] !== 'key-col4-L'
-  && k[6] !== 'key-esc');
+function assertLen(layer, n) {
+  if (layer.labels.length !== n) {
+    console.error(layer.title, 'expected', n, 'labels, got', layer.labels.length);
+  }
+}
 
-rest.forEach((row) => addKey(svg, ...row));
+function buildSection(title, pathNote, layers) {
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `<h3>${title}</h3><p class="section-note">${pathNote}</p>`;
+  const grid = document.createElement('div');
+  grid.className = 'layers-grid';
 
-const g56L = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-const prxL = PINKY56L_CX * SCALE + offX;
-const pryL = PINKY56L_CY * SCALE + offY;
-g56L.setAttribute('transform', `rotate(${PINKY56L_ROT_DEG}, ${prxL}, ${pryL})`);
-pinky56L.forEach(([x, y, rot_cd, rx, ry, label]) => addKey(g56L, x, y, rot_cd, rx, ry, label, 'key'));
-svg.appendChild(g56L);
+  layers.forEach((layer) => {
+    assertLen(layer, 46);
+    const card = document.createElement('div');
+    card.className = 'layer-card';
+    const h4 = document.createElement('h4');
+    h4.textContent = layer.title;
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('id', layer.id);
+    svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    card.appendChild(h4);
+    card.appendChild(svg);
+    grid.appendChild(card);
+  });
 
-const g56 = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-const prxBlock = PINKY56_CX * SCALE + offX;
-const pryBlock = PINKY56_CY * SCALE + offY;
-g56.setAttribute('transform', `rotate(${PINKY56_ROT_DEG}, ${prxBlock}, ${pryBlock})`);
-pinky56.forEach(([x, y, rot_cd, rx, ry, label, cls]) => addKey(g56, x, y, rot_cd, rx, ry, label, 'key'));
-svg.appendChild(g56);
+  wrap.appendChild(grid);
+  document.body.appendChild(wrap);
 
-addCol4Strip(svg, col4L, -15, 303, 184);
-addCol4Strip(svg, col4R, 15, 1527, 184);
-keyEscCaps.forEach((row) => addKey(svg, ...row));
+  layers.forEach((layer) => {
+    renderKeyboard(layer.id, geometryLabels(layer.labels));
+  });
+}
+
+buildSection(
+  'Module · boards/shields/hshs46/hshs46.keymap',
+  '<code>&amp;mo</code> Nav/Sym · multi alpha layers · ADJ with Studio / BT',
+  MODULE_LAYERS
+);
+
+buildSection(
+  'User config · config/boards/shields/hshs46/hshs46.keymap',
+  '<code>&amp;to</code> layers · NAV <code>mmv</code>/<code>msc</code>/<code>mkp</code> · requires <code>CONFIG_ZMK_POINTING</code> for pointer layer',
+  CONFIG_LAYERS
+);
 </script>
 </body>
 </html>

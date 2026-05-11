@@ -2,6 +2,9 @@
  * Copyright (c) 2021-2022 The ZMK Contributors
  *
  * SPDX-License-Identifier: MIT
+ *
+ * Companion keymap `hshs46.keymap` uses pointing behaviors (`mmv`, `msc`, `mkp`).
+ * Enable CONFIG_ZMK_POINTING=y in the user config (see `config/hshs46.conf`).
  */
 
 #include <dt-bindings/zmk/matrix_transform.h>

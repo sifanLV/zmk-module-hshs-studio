@@ -2,9 +2,14 @@
  * Copyright (c) 2021-2022 The ZMK Contributors
  * SPDX-License-Identifier: MIT
  *
- * HSHS46 Physical Layout
- * Key rotations represent visual splay only (not PCB footprint rotation)
- * Same geometry as config (see `config/boards/shields/hshs46/hshs46-layouts.dtsi`).
+ * Same geometry as `config/boards/shields/hshs46/hshs46-layouts.dtsi` — keep both files in sync.
+ * Studio legends below match `boards/shields/hshs46/hshs46.keymap` default_layer (QWERTY).
+ * Key rotations represent visual splay only (not PCB footprint rotation).
+ * Left finger grid mirrors right about x=915 (2M=1830): x' = 1830−x−100, rx' = 1830−rx, rot' = −rot, y unchanged.
+ * Col 3 ring W/S/X, O/L/DOT: spine x step ±34/+95 colinear centres; −15° / +15° per key — see docs/hshs46-column-angles.md (unchanged spine).
+ * E/D/C and mirror I,K,comma: rot 0; each key pivots own centre — no shared off-row pivot row stagger.
+ * Inner pair: L ESC, R CAPS_WORD on default; thumbs share pivot ry with adjacent thumb keys — see docs.
+ * Outer pinky mirrors P…BSPC (row 0). Thumbs +12 gap.
  */
 
 #include <physical_layouts.dtsi>
@@ -15,8 +20,8 @@
         display-name = "HSHS46";
 
         keys  //                     w    h     x     y      rot    rx    ry
-        /* Row 0 - left (positions mirror right BSPC,P,O,I,U,Y) */
-            = <&key_physical_attrs 100  100    58   176        0   108   226>  /* L row0 col0 grave */
+        /* Row 0 - left (mirror R row0: BSPC,P,O,I,U,Y) */
+            = <&key_physical_attrs 100  100    58   176        0   108   226>  /* L row0 col0 GRAVE */
             , <&key_physical_attrs 100  100   163   176        0   213   226>  /* L row0 col1 Q */
             , <&key_physical_attrs 100  100   219    39  (-1500)   269    89>  /* L row0 col2 W */
             , <&key_physical_attrs 100  100   408     0        0   458    50>  /* L row0 col3 E */
@@ -29,8 +34,8 @@
             , <&key_physical_attrs 100  100  1511    39     1500  1561    89>  /* R col3 row0 O */
             , <&key_physical_attrs 100  100  1567   176        0  1617   226>  /* R col5 row0 P */
             , <&key_physical_attrs 100  100  1672   176        0  1722   226>  /* R col6 row0 BSPC */
-        /* Row 1 - left (mirror ENTER,SEMI,L,K,J,H) */
-            , <&key_physical_attrs 100  100    58   269        0   108   319>  /* L row1 col0 TAB */
+        /* Row 1 - left (mirror R row1: none,COLON,L,K,J,H) */
+            , <&key_physical_attrs 100  100    58   269        0   108   319>  /* L row1 col0 none */
             , <&key_physical_attrs 100  100   163   269        0   213   319>  /* L row1 col1 A */
             , <&key_physical_attrs 100  100   253   134  (-1500)   303   184>  /* L row1 col2 S */
             , <&key_physical_attrs 100  100   408    94        0   458   144>  /* L row1 col3 D */
@@ -41,35 +46,34 @@
             , <&key_physical_attrs 100  100  1222   125        0  1272   175>  /* R row1 col7 J */
             , <&key_physical_attrs 100  100  1322    94        0  1372   144>  /* R row1 col8 K */
             , <&key_physical_attrs 100  100  1477   134     1500  1527   184>  /* R col3 row1 L */
-            , <&key_physical_attrs 100  100  1567   269        0  1617   319>  /* R col5 row1 SEMI */
-            , <&key_physical_attrs 100  100  1672   269        0  1722   319>  /* R col6 row1 ENTER */
-        /* Row 2 - left (mirror SQT,SLASH,DOT,COMMA,M,N) */
-            , <&key_physical_attrs 100  100    58   362        0   108   412>  /* L row2 col0 CTL */
+            , <&key_physical_attrs 100  100  1567   269        0  1617   319>  /* R col5 row1 COLON */
+            , <&key_physical_attrs 100  100  1672   269        0  1722   319>  /* R col6 row1 none */
+        /* Row 2 - left (mirror R row2: none,SLASH,DOT,COMMA,M,N) */
+            , <&key_physical_attrs 100  100    58   362        0   108   412>  /* L row2 col0 none */
             , <&key_physical_attrs 100  100   163   362        0   213   412>  /* L row2 col1 Z */
             , <&key_physical_attrs 100  100   287   229  (-1500)   337   279>  /* L row2 col2 X */
             , <&key_physical_attrs 100  100   408   189        0   458   239>  /* L row2 col3 C */
             , <&key_physical_attrs 100  100   508   219        0   558   269>  /* L row2 col4 V */
             , <&key_physical_attrs 100  100   608   233        0   658   283>  /* L row2 col5 B */
-        /* Inner extra bottom keys — col 0: pivot on SFT / SPC (no separate ry stagger) */
+        /* Inner column — L ESC, R CAPS_WORD (default); pivot with thumbs — see docs */
             , <&key_physical_attrs 100  100   685   287     2000   735   431>  /* L ESC */
-            , <&key_physical_attrs 100  100  1045   287  (-2000)  1095   431>  /* R CAPS */
+            , <&key_physical_attrs 100  100  1045   287  (-2000)  1095   431>  /* R CAPS_WORD */
         /* Row 2 - right */
             , <&key_physical_attrs 100  100  1122   233        0  1172   283>  /* R row2 col6 N */
             , <&key_physical_attrs 100  100  1222   219        0  1272   269>  /* R row2 col7 M */
             , <&key_physical_attrs 100  100  1322   189        0  1372   239>  /* R row2 col8 comma */
             , <&key_physical_attrs 100  100  1443   229     1500  1493   279>  /* R col3 row2 DOT */
             , <&key_physical_attrs 100  100  1567   362        0  1617   412>  /* R col5 row2 SLASH */
-            , <&key_physical_attrs 100  100  1672   362        0  1722   412>  /* R col6 row2 SQT */
-        /* Thumb - left RC(3,1..4): mirror right (+12 split gap vs prior) */
-            , <&key_physical_attrs 100  100   446   339        0   496   389>  /* L thumb RC(3,1) GUI */
-            , <&key_physical_attrs 100  100   568   350     1000   618   400>  /* L thumb RC(3,2) ALT */
-            , <&key_physical_attrs 100  100   685   381     2000   735   431>  /* L thumb RC(3,3) SHIFT */
-            , <&key_physical_attrs 100  100   796   433     3000   846   483>  /* L thumb RC(3,4) NAV */
-        /* Thumb - right RC(3,7..10) */
-            , <&key_physical_attrs 100  100   934   433  (-3000)   984   483>  /* R thumb RC(3,7) SYM */
-            , <&key_physical_attrs 100  100  1045   381  (-2000)  1095   431>  /* R thumb RC(3,8) SPC */
-            , <&key_physical_attrs 100  100  1162   350  (-1000)  1212   400>  /* R thumb RC(3,9) ALT */
-            , <&key_physical_attrs 100  100  1284   339        0  1334   389>  /* R thumb RC(3,10) GUI */
+            , <&key_physical_attrs 100  100  1672   362        0  1722   412>  /* R col6 row2 none */
+        /* Thumb default: LGUI LALT SK_SHFT mo NAV mo SYM SPACE LALT RGUI */
+            , <&key_physical_attrs 100  100   446   339        0   496   389>  /* L thumb RC(3,1) LGUI */
+            , <&key_physical_attrs 100  100   568   350     1000   618   400>  /* L thumb RC(3,2) LALT */
+            , <&key_physical_attrs 100  100   685   381     2000   735   431>  /* L thumb RC(3,3) SK_SHFT */
+            , <&key_physical_attrs 100  100   796   433     3000   846   483>  /* L thumb RC(3,4) mo NAV_L */
+            , <&key_physical_attrs 100  100   934   433  (-3000)   984   483>  /* R thumb RC(3,7) mo SYM_L */
+            , <&key_physical_attrs 100  100  1045   381  (-2000)  1095   431>  /* R thumb RC(3,8) SPACE */
+            , <&key_physical_attrs 100  100  1162   350  (-1000)  1212   400>  /* R thumb RC(3,9) LALT */
+            , <&key_physical_attrs 100  100  1284   339        0  1334   389>  /* R thumb RC(3,10) RGUI */
             ;
     };
 };
